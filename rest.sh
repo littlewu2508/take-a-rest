@@ -1,7 +1,14 @@
 #!/bin/bash
 
-$(sleep 45m; notify-send "Take a Rest") &
-SLEEP_ID=$!
-SLEEP_ID=$(ps --ppid ${SLEEP_ID} -o pid=)
-SLEEP_ID=$(ps --ppid ${SLEEP_ID} -o pid=)
-echo ${SLEEP_ID}
+if [[ $# -ne 3 ]]; then
+	echo "Usage: ./rest.sh <work_duration> <rest_duration> <temp_leave_threshold>"
+	exit 1
+fi
+
+WORK_DURATION=$1
+REST_DURATION=$2
+TEMP_LEAVE_THRESHOLD=$3
+
+./rest_counter.sh ${WORK_DURATION} ${TEMP_LEAVE_THRESHOLD} ${REST_DURATION} &
+
+swayidle -d -w timeout ${REST_DURATION} "pkill -TERM rest_counter.sh" resume "./rest_counter.sh ${WORK_DURATION} ${TEMP_LEAVE_THRESHOLD} ${REST_DURATION} &"
