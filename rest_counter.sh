@@ -12,7 +12,7 @@ sleep_pid=$(ps --ppid ${shell_pid} -o pid=)
 
 TEMP_LEAVE_THRESHOLD=$2
 
-swayidle -d -w timeout ${TEMP_LEAVE_THRESHOLD} "kill -INT ${sleep_pid} > /dev/null 2>&1" \
+xidle.sh -d -w timeout ${TEMP_LEAVE_THRESHOLD} "kill -INT ${sleep_pid} > /dev/null 2>&1" \
 	resume "sleep ${TEMP_LEAVE_THRESHOLD} && kill -CONT ${sleep_pid} > /dev/null 2>&1" &
 child=$!
 wait "$child"

@@ -11,4 +11,4 @@ TEMP_LEAVE_THRESHOLD=$3
 
 ./rest_counter.sh ${WORK_DURATION} ${TEMP_LEAVE_THRESHOLD} ${REST_DURATION} &
 
-swayidle -d -w timeout ${REST_DURATION} "pkill -TERM rest_counter.sh" resume "./rest_counter.sh ${WORK_DURATION} ${TEMP_LEAVE_THRESHOLD} ${REST_DURATION} &"
+xidle.sh -d -w timeout ${REST_DURATION} "pkill -TERM rest_counter.sh" resume "./rest_counter.sh ${WORK_DURATION} ${TEMP_LEAVE_THRESHOLD} ${REST_DURATION} &"
